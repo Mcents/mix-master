@@ -53,3 +53,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   gem 'rspec-rails'
 end
+
+group :development, :test do
+  gem 'capybara'
+  gem 'launchy'
+  gem 'shoulda-matchers'
+end
