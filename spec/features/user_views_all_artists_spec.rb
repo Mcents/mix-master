@@ -1,22 +1,15 @@
 require 'rails_helper'
 
-RSpec.feature "User vists the Artist Index" do
-  scenario "And sees a list of all Artists" do
-    a1 = Artist.create(name: "Justin Bieber", image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
-    a2 = Artist.create(name: "Taylor Swift", image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
-    a3 = Artist.create(name: "Ryan Adams", image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
+RSpec.feature "User views all artists" do
+  scenario "they see the names of each artist" do
+    artists = %w(Jim Selena Justin).map do |artist_name|
+      Artist.create(name: artist_name, image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
+    end
 
     visit artists_path
-    expect(page).to have_content("Ryan Adams", "Taylor Swift", "Justin Bieber")
-  end
 
-  scenario "And all artist have a link" do
-    a1 = Artist.create(name: "Justin Bieber", image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
-    a2 = Artist.create(name: "Taylor Swift", image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
-    a3 = Artist.create(name: "Ryan Adams", image_path: "http://cps-static.rovicorp.com/3/JPG_400/MI0003/146/MI0003146038.jpg")
-
-    visit artists_path
-    click_link('Ryan Adams')
-    expect(current_path).to eq('/artists/3')
+    artists.each do |artist|
+      expect(page).to have_link artist.name, href: artist_path(artist)
+    end
   end
 end
