@@ -2,6 +2,6 @@
 
 <%= link_to "New playlist", new_playlist_path %>
 
-<%= @playlist.each do |playlist| %>
+<% @playlist.each do |playlist| %>
   <%= link_to playlist.name, playlist %>
   <% end  %>
